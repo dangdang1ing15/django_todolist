@@ -1,6 +1,7 @@
 from django.urls import path
-from . import views
+from .views import TodoListCreateAPIView, todo_list
 
 urlpatterns = [
-    path('', views.todo_list, name='todo_list'),
+    path('', todo_list, name='todo_list'),
+    path('api/todos/', TodoListCreateAPIView.as_view(), name='api-todos'),
 ]

@@ -1,6 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from rest_framework import generics
 from .models import Todo
 from .forms import TodoForm
+from .serializers import TodoSerializer
+
+class TodoListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
 
 def todo_list(request):
     todo_items = Todo.objects.all()
