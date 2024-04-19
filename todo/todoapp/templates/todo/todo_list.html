@@ -1,0 +1,46 @@
+<!-- todo/templates/todo/todo_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.text }}
+        <button type="submit" name="add_todo">Add</button>
+    </form>
+    <!-- Todo 섹션 -->
+    <h2>TODO</h2>
+    <ul>
+        {% for todo in todos %}
+            {% if not todo.completed %}
+                <li>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="checkbox" name="complete_todo" value="{{ todo.id }}" id="todo_{{ todo.id }}" onchange="this.form.submit()">
+                        <label for="todo_{{ todo.id }}">{{ todo.title }}</label>
+                    </form>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <!-- Completed 섹션 -->
+    <h2>COMPLETE</h2>
+    <ul>
+        {% for todo in todos %}
+            {% if todo.completed %}
+                <li>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="checkbox" name="undo_todo" value="{{ todo.id }}" id="completed_{{ todo.id }}" onchange="this.form.submit()" checked>
+                        <label for="completed_{{ todo.id }}">{{ todo.title }}</label>
+                    </form>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</body>
+</html>
