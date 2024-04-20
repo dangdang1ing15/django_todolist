@@ -1,11 +1,9 @@
-/* 전체적인 레이아웃 스타일 */
 #app {
   max-width: 600px;
   margin: 2rem auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 할 일 추가 폼 스타일 */
 .todo-form {
   background-color: #f6f8fa;
   padding: 1rem;
@@ -16,22 +14,21 @@
 }
 
 .todo-form-container {
-  background-color: #f6f8fa; /* 배경색 설정 */
+  background-color: #f6f8fa;
   padding: 1rem;
-  margin-bottom: 1rem; /* 폼과 할 일 목록 사이의 공간을 추가합니다 */
+  margin-bottom: 1rem;
   border-bottom: 1px solid #e1e4e8;
-  border-radius: 6px; /* 모서리를 둥글게 처리합니다 */
+  border-radius: 6px;
 }
 
 .todo-input {
-  flex: 1; /* 입력 필드가 가능한 많은 공간을 차지하도록 설정 */
+  flex: 1;
   padding: 0.5rem;
   border: 1px solid #d1d5da;
   border-radius: 6px;
-  margin-right: 0.5rem; /* 버튼과의 간격을 설정합니다 */
+  margin-right: 0.5rem;
 }
 
-/* 할 일 목록 스타일 */
 .todo-list {
   list-style: none;
   margin: 0;

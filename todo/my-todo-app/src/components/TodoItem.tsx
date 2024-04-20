@@ -30,7 +30,6 @@ const TodoItem: React.FC<Props> = ({
 
   const handleEdit = () => {
     if (!editText.trim()) {
-      // Prevent saving empty text
       return;
     }
     updateTodo(todo.id, editText);

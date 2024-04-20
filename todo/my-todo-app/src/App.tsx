@@ -37,7 +37,7 @@ const App: React.FC = () => {
       if (!response.ok) {
         throw new Error("Failed to add todo");
       }
-      loadTodos(); // Todo 목록을 다시 불러옵니다.
+      loadTodos();
     } catch (error) {
       console.error("Failed to add todo:", error);
     }
@@ -51,7 +51,7 @@ const App: React.FC = () => {
       if (!response.ok) {
         throw new Error("Failed to delete todo");
       }
-      loadTodos(); // Refresh todos
+      loadTodos();
     } catch (error) {
       console.error("Failed to delete todo:", error);
     }
@@ -92,7 +92,7 @@ const App: React.FC = () => {
       if (!response.ok) {
         throw new Error("Failed to toggle todo");
       }
-      loadTodos(); // Todo 목록을 다시 불러옵니다.
+      loadTodos();
     } catch (error) {
       console.error("Failed to toggle todo:", error);
     }

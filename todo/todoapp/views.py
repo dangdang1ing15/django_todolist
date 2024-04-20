@@ -23,13 +23,13 @@ def todo_list(request):
                 new_todo = Todo(title=form.cleaned_data['text'])
                 new_todo.save()
                 return redirect('todo_list')
-        elif 'complete_todo' in request.POST:  # 완료 체크박스를 처리합니다.
+        elif 'complete_todo' in request.POST:  
             todo_id = request.POST['complete_todo']
             todo = get_object_or_404(Todo, id=todo_id)
             todo.completed = True
             todo.save()
             return redirect('todo_list')
-        elif 'undo_todo' in request.POST:  # 완료 취소를 처리합니다.
+        elif 'undo_todo' in request.POST: 
             todo_id = request.POST['undo_todo']
             todo = get_object_or_404(Todo, id=todo_id)
             todo.completed = False
