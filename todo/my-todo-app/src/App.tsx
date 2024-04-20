@@ -1,5 +1,6 @@
 // src/App.tsx
 import React, { useEffect, useState } from "react";
+import Header from "./components/Header";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import { Todo } from "./interfaces";
@@ -66,9 +67,15 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
-      <TodoForm addTodo={addTodo} />
-      <TodoList todos={todos} toggleTodo={toggleTodo} />
+    <div id="app">
+      <Header />
+      <div className="todo-form-container">
+        <TodoForm addTodo={addTodo} />
+      </div>
+      <ul className="todo-list">
+        {" "}
+        {<TodoList todos={todos} toggleTodo={toggleTodo} />}
+      </ul>
     </div>
   );
 };
