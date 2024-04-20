@@ -1,57 +1,74 @@
 // src/App.tsx
 import React, { useEffect, useState } from "react";
-
-interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
+import { Todo } from "./interfaces";
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [newTodo, setNewTodo] = useState<string>("");
-
-  // Django API로부터 Todos를 로드합니다.
-  const loadTodos = async () => {
-    const response = await fetch("http://localhost:8000/api/todos/");
-    const data = await response.json();
-    setTodos(data);
-  };
 
   useEffect(() => {
     loadTodos();
   }, []);
 
-  // 새 Todo를 추가합니다.
-  const addTodo = async () => {
-    const response = await fetch("http://localhost:8000/api/todos/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ title: newTodo, completed: false }),
-    });
-    if (response.ok) {
+  const loadTodos = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/todos/");
+      if (!response.ok) {
+        throw new Error("Failed to fetch todos");
+      }
+      const data = await response.json();
+      setTodos(data);
+    } catch (error) {
+      console.error("Failed to load todos:", error);
+    }
+  };
+
+  const addTodo = async (title: string) => {
+    try {
+      const response = await fetch("http://localhost:8000/api/todos/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: title, completed: false }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to add todo");
+      }
       loadTodos(); // Todo 목록을 다시 불러옵니다.
+    } catch (error) {
+      console.error("Failed to add todo:", error);
+    }
+  };
+
+  const toggleTodo = async (id: number) => {
+    const todo = todos.find((t) => t.id === id);
+    if (!todo) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8000/api/todos/${id}/`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ completed: !todo.completed }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to toggle todo");
+      }
+      loadTodos(); // Todo 목록을 다시 불러옵니다.
+    } catch (error) {
+      console.error("Failed to toggle todo:", error);
     }
   };
 
   return (
     <div>
-      <input
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-        placeholder="Add new todo"
-      />
-      <button onClick={addTodo}>Add Todo</button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            {todo.title} - {todo.completed ? "Completed" : "Incomplete"}
-          </li>
-        ))}
-      </ul>
+      <TodoForm addTodo={addTodo} />
+      <TodoList todos={todos} toggleTodo={toggleTodo} />
     </div>
   );
 };
