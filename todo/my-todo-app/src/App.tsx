@@ -43,6 +43,38 @@ const App: React.FC = () => {
     }
   };
 
+  const deleteTodo = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/todos/${id}/`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete todo");
+      }
+      loadTodos(); // Refresh todos
+    } catch (error) {
+      console.error("Failed to delete todo:", error);
+    }
+  };
+
+  const updateTodo = async (id: number, title: string) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/todos/${id}/`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: title }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update todo");
+      }
+      loadTodos(); // Refresh todos
+    } catch (error) {
+      console.error("Failed to update todo:", error);
+    }
+  };
+
   const toggleTodo = async (id: number) => {
     const todo = todos.find((t) => t.id === id);
     if (!todo) {
@@ -74,7 +106,14 @@ const App: React.FC = () => {
       </div>
       <ul className="todo-list">
         {" "}
-        {<TodoList todos={todos} toggleTodo={toggleTodo} />}
+        {
+          <TodoList
+            todos={todos}
+            toggleTodo={toggleTodo}
+            deleteTodo={deleteTodo}
+            updateTodo={updateTodo}
+          />
+        }
       </ul>
     </div>
   );

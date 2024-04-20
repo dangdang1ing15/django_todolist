@@ -4,7 +4,7 @@ from .models import Todo
 from .forms import TodoForm
 from .serializers import TodoSerializer
 
-class TodoDetailAPIView(generics.RetrieveUpdateAPIView):
+class TodoDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
 

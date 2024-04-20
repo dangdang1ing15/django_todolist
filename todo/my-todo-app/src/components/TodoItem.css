@@ -1,0 +1,61 @@
+/* src/components/TodoItem.css */
+.todo-item {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.todo-checkbox {
+  margin-right: 10px;
+}
+
+.todo-text,
+.todo-edit-input {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 8px;
+}
+
+.todo-edit-input {
+  margin-right: 20px; /* Ensure spacing between input and buttons */
+}
+
+.todo-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.todo-status {
+  color: #586069;
+}
+
+.todo-buttons {
+  padding: 2px 8px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  display: inline;
+  margin-left: 8px; /* Space out buttons */
+  background-color: transparent;
+}
+
+.todo-buttons:hover {
+  background-color: #f6f8fa;
+  border-radius: 6px;
+}
+
+.delete-button {
+  color: #586069;
+}
+
+.edit-button {
+  color: #586069;
+}
+
+.todo-item-actions {
+  display: flex;
+  justify-content: flex-start;
+}
