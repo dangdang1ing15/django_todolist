@@ -35,6 +35,3 @@ def todo_list(request):
             todo.completed = False
             todo.save()
             return redirect('todo_list')
-
-    todo_items = Todo.objects.all()
-    return render(request, 'todo/todo_list.html', {'todos': todo_items, 'form': form})
