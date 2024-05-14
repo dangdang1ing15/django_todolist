@@ -1,24 +1,39 @@
 version: '3.8'
 
 services:
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+  backend:
+    build:
+      context: ./backend
     volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
+      - ./backend:/app
     depends_on:
       - db
+    environment:
+      - DATABASE_URL=postgres://todo_user:todo_password@db:5432/todo
+    ports:
+      - "8000:8000"
+
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:5000"
+    volumes:
+      - ./frontend:/app
+    stdin_open: true
+    tty: true
 
   db:
     image: postgres:13
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: todo
+      POSTGRES_USER: todo_user
+      POSTGRES_PASSWORD: todo_password
+    ports:
+      - "5432:5432"
 
 volumes:
   postgres_data:

@@ -3,5 +3,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('todoapp.urls')),  # todoapp의 URL 포함
+    path('api/', include('todoapp.urls')),
 ]
