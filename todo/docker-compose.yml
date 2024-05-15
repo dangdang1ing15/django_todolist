@@ -12,6 +12,10 @@ services:
       - DATABASE_URL=postgres://todo_user:todo_password@db:5432/todo
     ports:
       - "8000:8000"
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
 
   frontend:
     build:
